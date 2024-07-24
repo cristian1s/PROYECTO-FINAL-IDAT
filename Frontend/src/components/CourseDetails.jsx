@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { CiSquareAlert, CiClock2, CiCalendarDate, CiViewTable  } from "react-icons/ci";
+import {
+  CiSquareAlert,
+  CiClock2,
+  CiCalendarDate,
+  CiViewTable,
+} from "react-icons/ci";
 import { IoIosArrowForward } from "react-icons/io";
 
 const CourseDetails = () => {
@@ -64,14 +69,14 @@ const CourseDetails = () => {
         <div className="container mx-auto p-4">
           <div className="flex flex-row justify-between items-center">
             <h1 className="text-3xl font-bold mb-8">{course.nombre}</h1>
-             <div className="flex flex-row gap-4">
-                <span className="border-neutral-600 border rounded-lg p-2 font-bold">
+            <div className="flex flex-row gap-4">
+              <span className="border-neutral-600 border rounded-lg p-2 font-bold">
                 {course.categoria}
-                </span>
-                <span className="border-neutral-600 border rounded-lg p-2 font-bold">
+              </span>
+              <span className="border-neutral-600 border rounded-lg p-2 font-bold">
                 {course.modalidad}
-                </span>
-             </div>
+              </span>
+            </div>
           </div>
           <div className="flex flex-col gap-5 mb-6">
             <div className="flex gap-2 items-center">
@@ -108,12 +113,15 @@ const CourseDetails = () => {
             </div>
             <div className="pl-8 flex flex-row flex-wrap gap-6">
               {course.horarios.map((item, index) => (
-                <div key={index} className="bg-slate-100 rounded-lg flex flex-col gap-2 items-center  p-4">
+                <div
+                  key={index}
+                  className=" w-[250px] bg-slate-100 rounded-lg flex flex-col gap-2 items-start  p-4"
+                >
                   <div className="flex gap-2 items-center">
                     <IoIosArrowForward className="text-xl" />
                     <span className="font-bold text-xl">{item.inicio}</span>
                   </div>
-                  <div className="flex flex-col pl-2">
+                  <div className="flex flex-col pl-6">
                     <span className="text-lg">{item.dias}</span>
                     <span>
                       {item.horaInicio} - {item.horaFin}
@@ -130,15 +138,24 @@ const CourseDetails = () => {
             </div>
             <div className="pl-8 flex flex-row flex-wrap gap-6">
               {course.planEstudios.map((item, index) => (
-                <div key={index} className="bg-slate-100 rounded-lg flex flex-row gap-2  p-4">
-                  <div className="flex gap-2 items-start">
-                    <IoIosArrowForward className="text-xl" />
+                <div
+                  key={index}
+                  className="w-full bg-slate-100 rounded-lg flex flex-row justify-between gap-2  p-4"
+                >
+                  <div className="flex gap-2 ">
+                    <span className="pt-1">
+                      <IoIosArrowForward className="text-xl" />
+                    </span>
                     <span className="font-bold text-xl">{item.title}</span>
                   </div>
-                  <div className="flex flex-col gap-2 pl-8">
-                  {item.competencias.map((competencia, index) => (
-                      <span key={index} className="text-sm"> - {competencia}</span>
-                  ))}
+                  <div className="pl-2">
+                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-8" style={{listStyle:"disc"}}>
+                      {item.competencias.map((competencia, index) => (
+                        <li key={index} className="text-sm">
+                          {competencia}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
               ))}
