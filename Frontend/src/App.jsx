@@ -4,7 +4,7 @@ import CourseList from './components/CourseList'
 function App() {
 
   return (
-   <div className='py-4 flex flex-col items-center'>
+   <div className='px-12 py-6 flex items-center w-full'>
      <CourseList></CourseList>
    </div>
   )
