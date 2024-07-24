@@ -4,9 +4,20 @@ const CourseList = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [sortField, setSortField] = useState("");
+  const [sortOrder, setSortOrder] = useState("asc");
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/courses")
+    fetchCourses();
+  }, [sortField, sortOrder]);
+
+  const fetchCourses = () => {
+    setLoading(true);
+    let url = "http://localhost:5000/api/courses";
+    if (sortField) {
+      url += `?sortBy=${sortField}&order=${sortOrder}`;
+    }
+    fetch(url)
       .then((response) => response.json())
       .then((data) => {
         setCourses(data);
@@ -16,7 +27,13 @@ const CourseList = () => {
         setError(error);
         setLoading(false);
       });
-  }, []);
+  };
+
+  const handleSortChange = (e) => {
+    const [field, order] = e.target.value.split("-");
+    setSortField(field);
+    setSortOrder(order);
+  };
 
   if (loading) {
     return <p>Loading...</p>;
@@ -27,7 +44,7 @@ const CourseList = () => {
   }
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-4">
       <h1>Courses</h1>
       {/* <ul>
         {courses.map((course) => (
@@ -38,15 +55,39 @@ const CourseList = () => {
             <p>{course.vacantes}</p>
           </li>
         ))}
-
-        
       </ul> */}
-      <div>
-
+      <div className="flex gap-2">
+        <div>
+          
+        </div>
+        <div className="max-w-sm mx-auto">
+          <label
+            htmlFor="sort"
+            className="block mb-2 text-sm font-medium dark:text-gray-900 text-white"
+          >
+            Ordenar por:
+          </label>
+          <select
+            id="sort"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            onChange={handleSortChange}
+          >
+            <option value="">Seleccionar</option>
+            <option value="nombre-asc">Nombre (Ascendente)</option>
+            <option value="nombre-desc">Nombre (Descendente)</option>
+            <option value="precio-asc">Precio (Ascendente)</option>
+            <option value="precio-desc">Precio (Descendente)</option>
+            <option value="vacantes-asc">Vacantes (Ascendente)</option>
+            <option value="vacantes-desc">Vacantes (Descendente)</option>
+          </select>
+        </div>
       </div>
       <div className="flex flex-wrap gap-4">
         {courses.map((course) => (
-          <div key={course._id} className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 w-[400px]" >
+          <div
+            key={course._id}
+            className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 w-[400px]"
+          >
             <a href="#">
               <img
                 className="rounded-t-lg"
@@ -60,10 +101,11 @@ const CourseList = () => {
                   {course.nombre}
                 </h5>
               </a>
-              {/* <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              Here are the biggest enterprise technology acquisitions of 2021 so
-              far, in reverse chronological order.
-            </p> */}
+              <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              {/* Here are the biggest enterprise technology acquisitions of 2021 so
+              far, in reverse chronological order. */}
+              S/. {course.precio} 
+            </p>
               <a
                 href="#"
                 className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
