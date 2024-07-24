@@ -22,19 +22,25 @@ const CourseList = () => {
     let url = "http://localhost:5000/api/courses/filter?";
     const queryParams = new URLSearchParams();
 
-    if (sortField) {
-      queryParams.append("sortBy", sortField);
-      queryParams.append("order", sortOrder);
-    }
-
     if (filters.categoria) {
       queryParams.append("categoria", filters.categoria);
     }
     if (filters.nombre) {
       queryParams.append("nombre", filters.nombre);
     }
-    queryParams.append("precioMin", filters.precioMin);
-    queryParams.append("precioMax", filters.precioMax);
+    if (filters.precioMin) {
+      queryParams.append("precioMin", filters.precioMin);
+    }
+    if (filters.precioMax) {
+      queryParams.append("precioMax", filters.precioMax);
+    }
+    // queryParams.append("precioMin", filters.precioMin);
+    // queryParams.append("precioMax", filters.precioMax);
+
+    if (sortField) {
+      queryParams.append("sortBy", sortField);
+      queryParams.append("order", sortOrder);
+    }
 
     url += queryParams.toString();
 
@@ -83,28 +89,50 @@ const CourseList = () => {
           </li>
         ))}
       </ul> */}
-      <div className="flex gap-2">
-        <div>
-          <label htmlFor="categoria">Categoría:</label>
-          <select id="categoria" name="categoria" onChange={handleFilterChange}>
+      <div className="flex gap-6">
+        <div className="max-w-sm mx-auto">
+          <label
+            htmlFor="categoria"
+            className="block mb-2 text-sm font-medium dark:text-gray-900 text-white"
+          >
+            Categoría:
+          </label>
+          <select
+            id="categoria"
+            name="categoria"
+            onChange={handleFilterChange}
+            value={filters.categoria}
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5 px-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
             <option value="">Todas</option>
             <option value="TECNOLOGIA">Tecnología</option>
             <option value="GESTION">Gestión</option>
             <option value="DISEÑO">Diseño</option>
           </select>
         </div>
-        <div>
-          <label htmlFor="nombre">Nombre:</label>
+        <div className="max-w-sm mx-auto">
+          <label
+            htmlFor="nombre"
+            className="block mb-2 text-sm font-medium dark:text-gray-900 text-white"
+          >
+            Nombre:
+          </label>
           <input
             type="text"
             id="nombre"
             name="nombre"
             value={filters.nombre}
             onChange={handleFilterChange}
+            className="block w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           />
         </div>
-        <div>
-          <label htmlFor="precioMin">Precio mínimo:</label>
+        <div className="max-w-sm mx-auto">
+          <label
+            htmlFor="precioMin"
+            className="block mb-2 text-sm font-medium dark:text-gray-900 text-white"
+          >
+            Precio:
+          </label>
           <input
             type="range"
             id="precioMin"
@@ -113,21 +141,9 @@ const CourseList = () => {
             max="5000"
             value={filters.precioMin}
             onChange={handleFilterChange}
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           />
           <span>{filters.precioMin}</span>
-        </div>
-        <div>
-          <label htmlFor="precioMax">Precio máximo:</label>
-          <input
-            type="range"
-            id="precioMax"
-            name="precioMax"
-            min="1000"
-            max="5000"
-            value={filters.precioMax}
-            onChange={handleFilterChange}
-          />
-          <span>{filters.precioMax}</span>
         </div>
         <div className="max-w-sm mx-auto">
           <label
@@ -140,6 +156,7 @@ const CourseList = () => {
             id="sort"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             onChange={handleSortChange}
+            value={`${sortField}-${sortOrder}`}
           >
             <option value="">Seleccionar</option>
             <option value="nombre-asc">Nombre (Ascendente)</option>
