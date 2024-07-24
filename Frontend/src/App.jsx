@@ -1,12 +1,17 @@
 import './App.css'
+import CourseDetails from './components/CourseDetails';
 import CourseList from './components/CourseList'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
 
   return (
-   <div className='px-12 py-6 flex items-center w-full'>
-     <CourseList></CourseList>
-   </div>
+    <Router>
+    <Routes>
+      <Route path="/" element={<CourseList />} />
+      <Route path="/curso/:id" element={<CourseDetails />} />
+    </Routes>
+  </Router>
   )
 }
 
