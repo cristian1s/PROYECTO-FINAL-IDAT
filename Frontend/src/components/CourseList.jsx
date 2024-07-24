@@ -6,17 +6,38 @@ const CourseList = () => {
   const [error, setError] = useState(null);
   const [sortField, setSortField] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
+  const [filters, setFilters] = useState({
+    categoria: "",
+    nombre: "",
+    precioMin: 1000,
+    precioMax: 5000,
+  });
 
   useEffect(() => {
     fetchCourses();
-  }, [sortField, sortOrder]);
+  }, [sortField, sortOrder, filters]);
 
   const fetchCourses = () => {
     setLoading(true);
-    let url = "http://localhost:5000/api/courses";
+    let url = "http://localhost:5000/api/courses/filter?";
+    const queryParams = new URLSearchParams();
+
     if (sortField) {
-      url += `?sortBy=${sortField}&order=${sortOrder}`;
+      queryParams.append("sortBy", sortField);
+      queryParams.append("order", sortOrder);
     }
+
+    if (filters.categoria) {
+      queryParams.append("categoria", filters.categoria);
+    }
+    if (filters.nombre) {
+      queryParams.append("nombre", filters.nombre);
+    }
+    queryParams.append("precioMin", filters.precioMin);
+    queryParams.append("precioMax", filters.precioMax);
+
+    url += queryParams.toString();
+
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
@@ -28,11 +49,17 @@ const CourseList = () => {
         setLoading(false);
       });
   };
-
   const handleSortChange = (e) => {
     const [field, order] = e.target.value.split("-");
     setSortField(field);
     setSortOrder(order);
+  };
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilters({
+      ...filters,
+      [name]: value,
+    });
   };
 
   if (loading) {
@@ -58,7 +85,49 @@ const CourseList = () => {
       </ul> */}
       <div className="flex gap-2">
         <div>
-          
+          <label htmlFor="categoria">Categoría:</label>
+          <select id="categoria" name="categoria" onChange={handleFilterChange}>
+            <option value="">Todas</option>
+            <option value="TECNOLOGIA">Tecnología</option>
+            <option value="GESTION">Gestión</option>
+            <option value="DISEÑO">Diseño</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor="nombre">Nombre:</label>
+          <input
+            type="text"
+            id="nombre"
+            name="nombre"
+            value={filters.nombre}
+            onChange={handleFilterChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="precioMin">Precio mínimo:</label>
+          <input
+            type="range"
+            id="precioMin"
+            name="precioMin"
+            min="1000"
+            max="5000"
+            value={filters.precioMin}
+            onChange={handleFilterChange}
+          />
+          <span>{filters.precioMin}</span>
+        </div>
+        <div>
+          <label htmlFor="precioMax">Precio máximo:</label>
+          <input
+            type="range"
+            id="precioMax"
+            name="precioMax"
+            min="1000"
+            max="5000"
+            value={filters.precioMax}
+            onChange={handleFilterChange}
+          />
+          <span>{filters.precioMax}</span>
         </div>
         <div className="max-w-sm mx-auto">
           <label
@@ -102,10 +171,10 @@ const CourseList = () => {
                 </h5>
               </a>
               <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              {/* Here are the biggest enterprise technology acquisitions of 2021 so
+                {/* Here are the biggest enterprise technology acquisitions of 2021 so
               far, in reverse chronological order. */}
-              S/. {course.precio} 
-            </p>
+                S/. {course.precio}
+              </p>
               <a
                 href="#"
                 className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

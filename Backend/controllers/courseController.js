@@ -84,6 +84,8 @@ const filterCourses = async (req, res) => {
       precioMax,
       vacantesMin,
       vacantesMax,
+      sortBy, 
+      order
     } = req.query;
 
     // Construcción dinámica de filtros
@@ -116,8 +118,12 @@ const filterCourses = async (req, res) => {
         filter.vacantes.$lte = parseInt(vacantesMax, 10);
       }
     }
-
-    const courses = await Course.find(filter);
+    
+    let sortOptions = {};
+    if (sortBy) {
+      sortOptions[sortBy] = order === 'desc' ? -1 : 1; // Orden descendente o ascendente
+    }
+    const courses = await Course.find(filter).sort(sortOptions);
     res.json(courses);
   } catch (error) {
     res.status(500).json({ message: error.message });
