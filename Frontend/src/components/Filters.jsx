@@ -1,11 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
+/* eslint-disable react/prop-types */
+import { useEffect, useRef } from "react";
 
 const Filters = ({ filters, onFilterChange, onSortChange }) => {
   const nombreInputRef = useRef(null);
 
   useEffect(() => {
     if (nombreInputRef.current) {
-      nombreInputRef.current.focus();
+      if (filters.nombre.trim().length > 0) {
+        nombreInputRef.current.focus();
+      }
     }
   }, [filters.nombre]);
 
@@ -22,7 +25,6 @@ const Filters = ({ filters, onFilterChange, onSortChange }) => {
     nombreInputRef.current.blur();
   };
 
-
   const handleSortChange = (e) => {
     const [field, order] = e.target.value.split("-");
     onSortChange(field, order);
@@ -31,7 +33,10 @@ const Filters = ({ filters, onFilterChange, onSortChange }) => {
   return (
     <div className="flex gap-6">
       <div className="max-w-sm mx-auto">
-        <label htmlFor="categoria" className="block mb-2 text-sm font-medium dark:text-gray-900 text-white">
+        <label
+          htmlFor="categoria"
+          className="block mb-2 text-sm font-medium dark:text-gray-900 text-white"
+        >
           Categoría:
         </label>
         <select
@@ -48,7 +53,10 @@ const Filters = ({ filters, onFilterChange, onSortChange }) => {
         </select>
       </div>
       <div className="max-w-sm mx-auto">
-        <label htmlFor="nombre" className="block mb-2 text-sm font-medium dark:text-gray-900 text-white">
+        <label
+          htmlFor="nombre"
+          className="block mb-2 text-sm font-medium dark:text-gray-900 text-white"
+        >
           Nombre:
         </label>
         <input
@@ -63,7 +71,10 @@ const Filters = ({ filters, onFilterChange, onSortChange }) => {
         />
       </div>
       <div className="max-w-sm mx-auto">
-        <label htmlFor="precioMin" className="block mb-2 text-sm font-medium dark:text-gray-900 text-white">
+        <label
+          htmlFor="precioMin"
+          className="block mb-2 text-sm font-medium dark:text-gray-900 text-white"
+        >
           Precio:
         </label>
         <input
@@ -79,7 +90,10 @@ const Filters = ({ filters, onFilterChange, onSortChange }) => {
         <span>{filters.precioMin}</span>
       </div>
       <div className="max-w-sm mx-auto">
-        <label htmlFor="sort" className="block mb-2 text-sm font-medium dark:text-gray-900 text-white">
+        <label
+          htmlFor="sort"
+          className="block mb-2 text-sm font-medium dark:text-gray-900 text-white"
+        >
           Ordenar por:
         </label>
         <select
