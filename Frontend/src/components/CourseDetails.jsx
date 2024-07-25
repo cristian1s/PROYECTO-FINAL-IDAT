@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   CiSquareAlert,
   CiClock2,
   CiCalendarDate,
   CiViewTable,
+  CiShoppingCart,
 } from "react-icons/ci";
 import { IoIosArrowForward } from "react-icons/io";
 
@@ -13,6 +14,7 @@ const CourseDetails = () => {
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchCourseDetails();
@@ -31,6 +33,28 @@ const CourseDetails = () => {
     }
   };
 
+  const addToCart = async () => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const courseExists = cart.some((cartItem) => cartItem.id === course._id);
+  
+    if (!courseExists) {
+      const courseToAdd = {
+        id: course._id,
+        nombre: course.nombre,
+        precio: course.precio,
+        modalidad: course.modalidad,
+        categoria: course.categoria,
+        vacantes: 1,
+      };
+      const updatedCart = [...cart, courseToAdd];
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      await new Promise((resolve) => setTimeout(resolve, 0));
+      navigate('/cart');
+    } else {
+      navigate('/cart');
+    }
+  };  
+
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -42,7 +66,7 @@ const CourseDetails = () => {
   return (
     <div className="px-12 py-6 flex items-center w-full">
       <div className="flex flex-col gap-6 w-[900px] mx-auto">
-        <div>
+        <div className="flex justify-between">
           <a
             href="/"
             className="flex items-center p-2 bg-blue-500 text-white rounded-md w-[170px]"
@@ -65,6 +89,13 @@ const CourseDetails = () => {
             </svg>
             Lista de cursos
           </a>
+          <button
+            onClick={addToCart}
+            className="flex items-center p-2 bg-orange-400 text-white rounded-md w-[180px]"
+          >
+            <CiShoppingCart className="text-xl mr-2" />
+            Quiero Inscribirme
+          </button>
         </div>
         <div className="container mx-auto p-4">
           <div className="flex flex-row justify-between items-center">
@@ -149,7 +180,10 @@ const CourseDetails = () => {
                     <span className="font-bold text-xl">{item.title}</span>
                   </div>
                   <div className="pl-2">
-                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-8" style={{listStyle:"disc"}}>
+                    <ul
+                      className="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-8"
+                      style={{ listStyle: "disc" }}
+                    >
                       {item.competencias.map((competencia, index) => (
                         <li key={index} className="text-sm">
                           {competencia}
@@ -164,6 +198,15 @@ const CourseDetails = () => {
           {/* <p className="mb-2">Precio: S/. {course.precio}</p> */}
           {/* <p className="mb-2">Vacantes: {course.vacantes}</p> */}
           {/* <p className="mb-4">{course.descripcion}</p> */}
+        </div>
+        <div className="flex items-center justify-center">
+          <button
+            onClick={addToCart}
+            className="flex items-center p-2 bg-orange-400 text-white rounded-md w-[180px]"
+          >
+            <CiShoppingCart className="text-xl mr-2" />
+            Quiero Inscribirme
+          </button>
         </div>
       </div>
     </div>
