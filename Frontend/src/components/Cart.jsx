@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { FaPlus, FaMinus,FaTrashCan   } from "react-icons/fa6";
 
 const Cart = () => {
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")) || []);
@@ -68,19 +69,19 @@ const Cart = () => {
                   onClick={() => updateVacantes(course.id, -1)}
                   disabled={course.vacantes <= 1}
                 >
-                  -
+                  <FaMinus />
                 </button>
                 <button
                   className="bg-green-500 text-white px-2 py-1 rounded mr-2"
                   onClick={() => updateVacantes(course.id, 1)}
                 >
-                  +
+                  <FaPlus />
                 </button>
                 <button
                   className="bg-gray-500 text-white px-2 py-1 rounded"
                   onClick={() => removeCourse(course.id)}
                 >
-                  Eliminar
+                  <FaTrashCan />
                 </button>
               </div>
             </div>
