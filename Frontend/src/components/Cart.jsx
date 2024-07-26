@@ -68,11 +68,15 @@ const Cart = () => {
 
   const handleCheckout = () => {
     if (!user) {
-      alert("Please log in or register to proceed with the payment");
+      alert("Debes iniciar sesión para proceder al pago.");
       return;
     }
-    // Proceed with checkout
   };
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    setUser(null);
+  };
+
   return (
     <div className="container mx-auto p-4 flex">
       <div className="w-2/3">
@@ -97,19 +101,19 @@ const Cart = () => {
                     onClick={() => updateVacantes(course.id, -1)}
                     disabled={course.vacantes <= 1}
                   >
-                    -
+                    <FaMinus />
                   </button>
                   <button
                     className="bg-green-500 text-white px-2 py-1 rounded mr-2"
                     onClick={() => updateVacantes(course.id, 1)}
                   >
-                    +
+                    <FaPlus />
                   </button>
                   <button
                     className="bg-gray-500 text-white px-2 py-1 rounded"
                     onClick={() => removeCourse(course.id)}
                   >
-                    Eliminar
+                    <FaTrashCan />
                   </button>
                 </div>
               </div>
@@ -126,26 +130,36 @@ const Cart = () => {
       <div className="w-1/3 pl-4">
         {!user ? (
           <div className="flex flex-col gap-4">
-            <div className="bg-slate-200 rounded-xl px-4 py-2 ">
-              <h2 className="text-2xl font-bold mb-4 text-center">
+            <div className="bg-slate-200 rounded-xl px-4 pt-3 pb-2 ">
+              <h2 className="text-xl font-bold mb-4 text-center">
                 Iniciar Sesión
               </h2>
               <LoginForm onLogin={handleLogin} />
             </div>
             {/* <p>Si no tiene una cuenta </p> */}
-            <div className="bg-slate-200 rounded-xl px-4 py-2">
-              <h2 className="text-2xl font-bold mb-4 text-center">
+            <div className="bg-slate-200 rounded-xl px-4 pt-3 pb-2 ">
+              <h2 className="text-xl font-bold mb-4 text-center">
                 Registrarse
               </h2>
               <RegisterForm onRegister={handleRegister} />
             </div>
           </div>
         ) : (
-          <div>
+          <div className="bg-slate-200 rounded-xl p-4 ">
             <h2 className="text-2xl font-bold mb-4">
               Bienvenido, {user.nombre}
             </h2>
             <p>Listo para proceder al pago.</p>
+            <div className="flex justify-between w-full">
+              <span></span>
+              <button
+                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                type="submit"
+                onClick={handleLogout}
+              >
+                Cerrar Sesion
+              </button>
+            </div>
           </div>
         )}
       </div>

@@ -38,15 +38,18 @@ const RegisterForm = ({ onRegister }) => {
   };
 
   return (
-    <form onSubmit={handleRegister} className="mb-3">
+    <form onSubmit={handleRegister} className="mb-3 px-2">
       {error && <p className="text-red-500">{error}</p>}
       <div className="flex flex-row w-full gap-2">
-        <div className="mb-4 w-1/2">
-          <label className="block text-sm font-bold mb-2" htmlFor="nombre">
+        <div className="mb-3 w-1/2">
+          <label
+            className="block mb-2 text-sm font-medium dark:text-gray-900 text-white"
+            htmlFor="nombre"
+          >
             Nombre
           </label>
           <input
-            className="w-full p-2 border rounded"
+            className="dark:bg-gray-50 border dark:border-gray-300 dark:text-gray-900 text-sm rounded-lg dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 dark:placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
             type="text"
             id="nombre"
             value={nombre}
@@ -54,12 +57,15 @@ const RegisterForm = ({ onRegister }) => {
             required
           />
         </div>
-        <div className="mb-4 w-1/2">
-          <label className="block text-sm font-bold mb-2" htmlFor="apellidos">
+        <div className="mb-3 w-1/2">
+          <label
+            className="block mb-2 text-sm font-medium dark:text-gray-900 text-white"
+            htmlFor="apellidos"
+          >
             Apellidos
           </label>
           <input
-            className="w-full p-2 border rounded"
+            className="dark:bg-gray-50 border dark:border-gray-300 dark:text-gray-900 text-sm rounded-lg dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 dark:placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
             type="text"
             id="apellidos"
             value={apellidos}
@@ -68,12 +74,15 @@ const RegisterForm = ({ onRegister }) => {
           />
         </div>
       </div>
-      <div className="mb-4">
-        <label className="block text-sm font-bold mb-2" htmlFor="correo">
+      <div className="mb-3">
+        <label
+          className="block mb-2 text-sm font-medium dark:text-gray-900 text-white"
+          htmlFor="correo"
+        >
           Correo electrónico
         </label>
         <input
-          className="w-full p-2 border rounded"
+          className="dark:bg-gray-50 border dark:border-gray-300 dark:text-gray-900 text-sm rounded-lg dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 dark:placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
           type="email"
           id="correo"
           value={correo}
@@ -81,12 +90,15 @@ const RegisterForm = ({ onRegister }) => {
           required
         />
       </div>
-      <div className="mb-4">
-        <label className="block text-sm font-bold mb-2" htmlFor="contraseña">
+      <div className="mb-3">
+        <label
+          className="block mb-2 text-sm font-medium dark:text-gray-900 text-white"
+          htmlFor="contraseña"
+        >
           Contraseña
         </label>
         <input
-          className="w-full p-2 border rounded"
+          className="dark:bg-gray-50 border dark:border-gray-300 dark:text-gray-900 text-sm rounded-lg dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 dark:placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
           type="password"
           id="contraseña"
           value={contraseña}
@@ -94,12 +106,15 @@ const RegisterForm = ({ onRegister }) => {
           required
         />
       </div>
-      <div className="mb-4">
-        <label className="block text-sm font-bold mb-2" htmlFor="edad">
+      <div className="mb-3">
+        <label
+          className="block mb-2 text-sm font-medium dark:text-gray-900 text-white"
+          htmlFor="edad"
+        >
           Edad
         </label>
         <input
-          className="w-full p-2 border rounded"
+          className="dark:bg-gray-50 border dark:border-gray-300 dark:text-gray-900 text-sm rounded-lg dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 dark:placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
           type="number"
           id="edad"
           value={edad}
@@ -107,12 +122,15 @@ const RegisterForm = ({ onRegister }) => {
           required
         />
       </div>
-      <button
-        className="bg-green-500 w-full text-white px-4 py-2 rounded mt-2"
-        type="submit"
-      >
-        Registrarse
-      </button>
+      <div className="flex justify-between w-full">
+        <span></span>
+        <button
+          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          type="submit"
+        >
+          Registrarse
+        </button>
+      </div>
     </form>
   );
 };
