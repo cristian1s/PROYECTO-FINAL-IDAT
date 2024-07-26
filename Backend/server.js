@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const connectDB = require('./config/db');
 const courseRoutes = require('./routes/courseRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ const corsOptions = {
 app.use(cors(corsOptions)); 
 
 app.use('/api', courseRoutes);
+app.use('/api', userRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
