@@ -12,7 +12,7 @@ const Cart = () => {
   );
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(""); 
+  const [error, setError] = useState("");
 
   useEffect(() => {
     calculateTotal();
@@ -46,54 +46,60 @@ const Cart = () => {
   };
 
   const handleLogin = (user) => {
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem("user", JSON.stringify(user));
     setUser(user);
   };
 
   const handleRegister = (user) => {
     setUser(user);
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem("user", JSON.stringify(user));
   };
 
   const handleCheckout = async () => {
     if (!user) {
-      alert('Por favor inicie sesión o regístrese para continuar con el pago.');
+      alert("Por favor inicie sesión o regístrese para continuar con el pago.");
       return;
     }
 
-    setLoading(true); 
+    setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:5000/api/payments/create-checkout-session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ cart, user }),
-      });
+      const response = await fetch(
+        "http://localhost:5000/api/payments/create-checkout-session",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ cart, user }),
+        }
+      );
 
       if (!response.ok) {
-        throw new Error('Fallo al crear la sesión de pago');
+        throw new Error("Fallo al crear la sesión de pago");
       }
 
       const { url } = await response.json();
-      console.log('Redirect Stripe Url:', url);
+      console.log("Redirect Stripe Url:", url);
       if (url) {
-        window.location.href = url; 
+        //agregar estado al carrito
+        localStorage.setItem("stateCart", "pagado");
+        window.location.href = url;
       } else {
-        throw new Error('URL de redirección no encontrada');
+        throw new Error("URL de redirección no encontrada");
       }
     } catch (error) {
-      setError('Fallo al iniciar el proceso de pago. Por favor, intente nuevamente.');
-      console.error('Error during checkout:', error);
+      setError(
+        "Fallo al iniciar el proceso de pago. Por favor, intente nuevamente."
+      );
+      console.error("Error during checkout:", error);
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
-  
   const handleLogout = () => {
-    localStorage.removeItem('user');
+    localStorage.removeItem("user");
     setUser(null);
   };
 
@@ -102,7 +108,15 @@ const Cart = () => {
       <div className="w-2/3">
         <h1 className="text-3xl font-bold mb-4">Carrito</h1>
         {cart.length === 0 ? (
-          <p>Tu carrito está vacío.</p>
+          <div>
+            <p className="mb-4">Tu carrito está vacío.</p>
+            <a
+              href="/"
+              className="bg-white-500 text-slate-500 border-neutral-600 px-4 py-2 border rounded-md mr-4"
+            >
+              Seguir comprando
+            </a>
+          </div>
         ) : (
           <div>
             {cart.map((course) => (
@@ -138,12 +152,18 @@ const Cart = () => {
                 </div>
               </div>
             ))}
+            <a
+              href="/"
+              className="bg-white-500 text-slate-500 border-neutral-600 px-4 py-2 border rounded-md mr-4"
+            >
+              Seguir comprando
+            </a>
             <button
               className="bg-blue-500 text-white px-4 py-2 rounded mt-4"
               onClick={handleCheckout}
               disabled={loading}
             >
-               {loading ? 'Procesando...' : `Pagar S/. ${total.toFixed(2)}`}
+              {loading ? "Procesando..." : `Pagar S/. ${total.toFixed(2)}`}
             </button>
             {error && <p className="text-red-500 mt-2">{error}</p>}
           </div>
@@ -173,7 +193,12 @@ const Cart = () => {
             </h2>
             <p>Listo para proceder al pago.</p>
             <div className="flex justify-between w-full">
-              <span></span>
+              <a
+                href="/orders"
+                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Mis compras
+              </a>
               <button
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 type="submit"

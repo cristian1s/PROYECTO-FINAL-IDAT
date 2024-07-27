@@ -5,6 +5,7 @@ import CourseList from './components/CourseList'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import SuccessPayment from './components/SuccessPayment';
 import CancelPayment from './components/CancelPayment';
+import OrderList from './components/OrderList';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
       <Route path="/cart" element={<Cart />} />
       <Route path="/success" element={<SuccessPayment />} />
       <Route path="/cancel" element={<CancelPayment />} />
+      <Route path="/orders" element={<OrderList />} />
     </Routes>
   </Router>
   )

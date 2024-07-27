@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Filters from "./Filters";
 import { Link } from "react-router-dom";
+import { FaShoppingCart } from "react-icons/fa";
 
 const CourseList = () => {
   const [courses, setCourses] = useState([]);
@@ -81,7 +82,12 @@ const CourseList = () => {
   return (
     <div className="px-12 py-6 flex items-center w-full">
       <div className="flex flex-col gap-6 w-[780px] mx-auto">
-        <h1 className="text-3xl font-bold">Cursos</h1>
+        <div className="flex justify-between items-center">
+          <h1 className="text-3xl font-bold">Cursos</h1>
+          <a href="/cart"
+          className="bottom-5 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          ><FaShoppingCart  className="text-2xl" /> </a>
+        </div>
         <Filters
           filters={filters}
           onFilterChange={handleFilterChange}
