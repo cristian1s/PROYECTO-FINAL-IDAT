@@ -23,7 +23,7 @@ const LoginForm = ({ onLogin }) => {
         setError(data.error);
       }
     } catch (err) {
-      setError("Invalid credentials");
+      setError("Credeciales incorrectas");
     }
   };
 

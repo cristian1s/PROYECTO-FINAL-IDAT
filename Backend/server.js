@@ -1,4 +1,3 @@
-// server.js
 const express = require('express');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
@@ -6,6 +5,7 @@ const cors = require('cors');
 const connectDB = require('./config/db');
 const courseRoutes = require('./routes/courseRoutes');
 const userRoutes = require('./routes/userRoutes');
+const paymentRoutes = require('./routes/paymentRoutes');
 
 dotenv.config();
 
@@ -23,6 +23,8 @@ app.use(cors(corsOptions));
 
 app.use('/api', courseRoutes);
 app.use('/api', userRoutes);
+app.use('/api', paymentRoutes);
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

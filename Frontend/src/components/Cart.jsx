@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { FaPlus, FaMinus, FaTrashCan } from "react-icons/fa6";
-
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 
@@ -11,21 +10,9 @@ const Cart = () => {
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("user")) || null
   );
-
-  // useEffect(() => {
-  //   // const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
-  //   // setCart(storedCart);
-  //   const storedUser = JSON.parse(localStorage.getItem("user"));
-  //   if (storedUser) {
-  //     setUser(storedUser);
-  //   }
-  // }, []);
-
-  //   useEffect(() => {
-  //     localStorage.setItem("cart", JSON.stringify(cart));
-  //   }, [cart]);
-
   const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(""); 
 
   useEffect(() => {
     calculateTotal();
@@ -59,19 +46,52 @@ const Cart = () => {
   };
 
   const handleLogin = (user) => {
+    localStorage.setItem('user', JSON.stringify(user));
     setUser(user);
   };
 
   const handleRegister = (user) => {
     setUser(user);
+    localStorage.setItem('user', JSON.stringify(user));
   };
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (!user) {
-      alert("Debes iniciar sesión para proceder al pago.");
+      alert('Por favor inicie sesión o regístrese para continuar con el pago.');
       return;
     }
+
+    setLoading(true); 
+
+    try {
+      const response = await fetch('http://localhost:5000/api/payments/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ cart, user }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Fallo al crear la sesión de pago');
+      }
+
+      const { url } = await response.json();
+      console.log('Redirect Stripe Url:', url);
+      if (url) {
+        window.location.href = url; 
+      } else {
+        throw new Error('URL de redirección no encontrada');
+      }
+    } catch (error) {
+      setError('Fallo al iniciar el proceso de pago. Por favor, intente nuevamente.');
+      console.error('Error during checkout:', error);
+    } finally {
+      setLoading(false); 
+    }
   };
+
+  
   const handleLogout = () => {
     localStorage.removeItem('user');
     setUser(null);
@@ -121,9 +141,11 @@ const Cart = () => {
             <button
               className="bg-blue-500 text-white px-4 py-2 rounded mt-4"
               onClick={handleCheckout}
+              disabled={loading}
             >
-              Pagar S/. {total.toFixed(2)}
+               {loading ? 'Procesando...' : `Pagar S/. ${total.toFixed(2)}`}
             </button>
+            {error && <p className="text-red-500 mt-2">{error}</p>}
           </div>
         )}
       </div>
