@@ -23,7 +23,7 @@ const CourseDetails = () => {
   const fetchCourseDetails = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${import.meta.env.REACT_APP_URI_BACKEND}/api/courses/${id}`);
+      const response = await fetch(`${import.meta.env.VITE_REACT_APP_URI_BACKEND}/api/courses/${id}`);
       const data = await response.json();
       setCourse(data);
       setLoading(false);

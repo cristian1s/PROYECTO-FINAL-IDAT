@@ -67,7 +67,7 @@ const Cart = () => {
 
     try {
       const response = await fetch(
-        `${import.meta.env.REACT_APP_URI_BACKEND}/api/payments/create-checkout-session`,
+        `${import.meta.env.VITE_REACT_APP_URI_BACKEND}/api/payments/create-checkout-session`,
         {
           method: "POST",
           headers: {

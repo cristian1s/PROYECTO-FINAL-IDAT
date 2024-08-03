@@ -4,9 +4,9 @@ import react from '@vitejs/plugin-react-swc'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  server: {
-    proxy: {
-      '/api': `${import.meta.env.REACT_APP_URI_BACKEND}`
-    }
-  }
+  // server: {
+  //   proxy: {
+  //     '/api': `${import.meta.env.VITE_REACT_APP_URI_BACKEND}`
+  //   }
+  // }
 })

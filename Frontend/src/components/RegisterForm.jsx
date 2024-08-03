@@ -11,7 +11,7 @@ const RegisterForm = ({ onRegister }) => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${import.meta.env.REACT_APP_URI_BACKEND}/api/users/register`, {
+      const response = await fetch(`${import.meta.env.VITE_REACT_APP_URI_BACKEND}/api/users/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

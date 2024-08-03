@@ -16,7 +16,7 @@ const SuccessPayment = () => {
       if (user && cart) {
         try {
           const response = await fetch(
-            `${import.meta.env.REACT_APP_URI_BACKEND}/api/payments/complete-order`,
+            `${import.meta.env.VITE_REACT_APP_URI_BACKEND}/api/payments/complete-order`,
             {
               method: "POST",
               headers: {
