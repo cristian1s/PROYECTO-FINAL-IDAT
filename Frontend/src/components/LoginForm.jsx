@@ -34,7 +34,7 @@ const LoginForm = ({ onLogin }) => {
         <div className="mb-4">
           <label
             htmlFor="email"
-            className="block mb-2 text-sm font-medium dark:text-gray-900 text-white"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
             Your email
           </label>
@@ -43,7 +43,7 @@ const LoginForm = ({ onLogin }) => {
             id="correo"
             value={correo}
             onChange={(e) => setCorreo(e.target.value)}
-            className="dark:bg-gray-50 border dark:border-gray-300 dark:text-gray-900 text-sm rounded-lg dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 dark:placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-blue-500 focus:border-blue-500 outline-none"
             placeholder="name@gmail.com"
             required
           />
@@ -51,7 +51,7 @@ const LoginForm = ({ onLogin }) => {
         <div className="mb-4">
           <label
             htmlFor="password"
-            className="block mb-2 text-sm font-medium dark:text-gray-900 text-white"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
             Your password
           </label>
@@ -60,7 +60,7 @@ const LoginForm = ({ onLogin }) => {
             id="contraseña"
             value={contraseña}
             onChange={(e) => setContraseña(e.target.value)}
-            className="dark:bg-gray-50 border dark:border-gray-300 dark:text-gray-900 text-sm rounded-lg dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 dark:placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-blue-500 focus:border-blue-500 outline-none"
             required
           />
         </div>
@@ -75,7 +75,7 @@ const LoginForm = ({ onLogin }) => {
           </div>
           <label
             htmlFor="remember"
-            className="ms-2 text-sm font-medium dark:text-gray-900 text-gray-300"
+            className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >
             Remember me
           </label>

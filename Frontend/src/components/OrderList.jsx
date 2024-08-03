@@ -55,18 +55,35 @@ const OrderList = () => {
       ) : (
         <div>
           {orders.map((order) => (
-            <div key={order._id} className="border p-4 mb-4 rounded">
-              <h2 className="text-xl font-bold mb-2">Compra ID: {order._id}</h2>
-              <p>Estado: {order.status}</p>
+            <div
+              key={order._id}
+              className="border p-4 mb-4 rounded-lg border-slate-400  flex flex-col "
+            >
+              <div className="flex flex-row justify-between">
+                <h2 className="text-xl font-bold mb-2">
+                  Compra ID: {order._id}
+                </h2>
+                <span
+                  className={`p-2 rounded-lg text-white uppercase text-sm ${
+                    order.status === "pendiente"
+                      ? "bg-yellow-600"
+                      : order.status === "completed"
+                      ? "bg-green-600"
+                      : "bg-red-600"
+                  }`}
+                >
+                  {order.status}
+                </span>
+              </div>
               <p>Total: S/. {order.total.toFixed(2)}</p>
               <h3 className="text-lg font-bold mt-2 mb-2">Items:</h3>
               <ul className="flex flex-wrap gap-2 ">
                 {order.items.map((item) => (
                   <li
                     key={item._id}
-                    className="ml-4 bg-slate-300 p-3 rounded-md"
+                    className="ml-4 bg-slate-300 p-4 rounded-md"
                   >
-                    <p>Curso ID: {item.courseId}</p>
+                    <p>Curso: {item.courseId.nombre}</p>
                     <p>Vacantes compradas: {item.quantity}</p>
                     <p>Precio: S/. {item.price}</p>
                   </li>

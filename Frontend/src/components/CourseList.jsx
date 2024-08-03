@@ -101,9 +101,10 @@ const CourseList = () => {
             >
               <a href="#">
                 <img
-                  className="rounded-t-lg"
-                  src="/docs/images/blog/image-1.jpg"
-                  alt=""
+                  loading="lazy"
+                  src={`/img/${course.imagen}.jpg`}
+                  alt={course.nombre}
+                  className="w-full h-52 object-cover mr-4 rounded-t-lg fd-trans"
                 />
               </a>
               <div className="p-5 flex flex-col">

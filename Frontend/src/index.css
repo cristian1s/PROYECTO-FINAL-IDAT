@@ -5,3 +5,6 @@
 body{
     font-family: 'Roboto', sans-serif;
 }
+.fd-trans{
+    mask-image: linear-gradient(rgba(0,0,0,.7) 100%, transparent);
+}

@@ -36,7 +36,7 @@ const CourseDetails = () => {
   const addToCart = async () => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     const courseExists = cart.some((cartItem) => cartItem.id === course._id);
-  
+
     if (!courseExists) {
       const courseToAdd = {
         id: course._id,
@@ -49,11 +49,11 @@ const CourseDetails = () => {
       const updatedCart = [...cart, courseToAdd];
       localStorage.setItem("cart", JSON.stringify(updatedCart));
       await new Promise((resolve) => setTimeout(resolve, 0));
-      navigate('/cart');
+      navigate("/cart");
     } else {
-      navigate('/cart');
+      navigate("/cart");
     }
-  };  
+  };
 
   if (loading) {
     return <p>Loading...</p>;
@@ -64,8 +64,8 @@ const CourseDetails = () => {
   }
 
   return (
-    <div className="px-12 py-6 flex items-center w-full">
-      <div className="flex flex-col gap-6 w-[900px] mx-auto">
+    <div className="px-12 py-6 flex items-center w-full ">
+      <div className="flex flex-col gap-6 w-[1000px] mx-auto ">
         <div className="flex justify-between">
           <a
             href="/"
@@ -97,102 +97,110 @@ const CourseDetails = () => {
             Quiero Inscribirme
           </button>
         </div>
-        <div className="container mx-auto p-4">
-          <div className="flex flex-row justify-between items-center">
-            <h1 className="text-3xl font-bold mb-8">{course.nombre}</h1>
-            <div className="flex flex-row gap-4">
-              <span className="border-neutral-600 border rounded-lg p-2 font-bold">
-                {course.categoria}
-              </span>
-              <span className="border-neutral-600 border rounded-lg p-2 font-bold">
-                {course.modalidad}
-              </span>
-            </div>
-          </div>
-          <div className="flex flex-col gap-5 mb-6">
-            <div className="flex gap-2 items-center">
-              <CiSquareAlert className="text-4xl" />
-              <span className="font-bold text-2xl">
-                {course.descripcion.title}
-              </span>
-            </div>
-            {course.descripcion.descripciones.map((item, index) => (
-              <div key={index} className="flex  flex-col gap-2 pl-8">
-                <div className="flex gap-2 items-center ">
-                  <IoIosArrowForward className="text-xl" />
-                  <span className="font-bold text-lg">{item.title}</span>
-                </div>
-                <div className="pl-6">
-                  <p>{item.text}</p>
-                </div>
+        <div className="container mx-auto  border border-slate-300 rounded-lg">
+          <img
+            loading="lazy"
+            src={`/img/${course.imagen}.jpg`}
+            alt={course.nombre}
+            className="w-full h-64 object-cover mr-4 rounded-t-lg fd-trans"
+          />
+          <div className="p-6">
+            <div className="flex flex-row justify-between items-center">
+              <h1 className="text-3xl font-bold mb-8">{course.nombre}</h1>
+              <div className="flex flex-row gap-4">
+                <span className="border-neutral-600 border rounded-lg p-2 font-bold">
+                  {course.categoria}
+                </span>
+                <span className="border-neutral-600 border rounded-lg p-2 font-bold">
+                  {course.modalidad}
+                </span>
               </div>
-            ))}
-          </div>
-          <div className="flex flex-col gap-6 mb-6">
-            <div className="flex gap-2 items-center">
-              <CiClock2 className="text-4xl" />
-              <span className="font-bold text-2xl">Duración</span>
             </div>
-            <div className="pl-8">
-              <p>{course.duracion} horas académicas </p>
-            </div>
-          </div>
-          <div className="flex flex-col gap-6 mb-6">
-            <div className="flex gap-2 items-center">
-              <CiCalendarDate className="text-4xl" />
-              <span className="font-bold text-2xl">Horarios</span>
-            </div>
-            <div className="pl-8 flex flex-row flex-wrap gap-6">
-              {course.horarios.map((item, index) => (
-                <div
-                  key={index}
-                  className=" w-[250px] bg-slate-100 rounded-lg flex flex-col gap-2 items-start  p-4"
-                >
-                  <div className="flex gap-2 items-center">
+            <div className="flex flex-col gap-5 mb-6">
+              <div className="flex gap-2 items-center">
+                <CiSquareAlert className="text-4xl" />
+                <span className="font-bold text-2xl">
+                  {course.descripcion.title}
+                </span>
+              </div>
+              {course.descripcion.descripciones.map((item, index) => (
+                <div key={index} className="flex  flex-col gap-2 pl-8">
+                  <div className="flex gap-2 items-center ">
                     <IoIosArrowForward className="text-xl" />
-                    <span className="font-bold text-xl">{item.inicio}</span>
+                    <span className="font-bold text-lg">{item.title}</span>
                   </div>
-                  <div className="flex flex-col pl-6">
-                    <span className="text-lg">{item.dias}</span>
-                    <span>
-                      {item.horaInicio} - {item.horaFin}
-                    </span>
+                  <div className="pl-6">
+                    <p>{item.text}</p>
                   </div>
                 </div>
               ))}
             </div>
-          </div>
-          <div className="flex flex-col gap-6 mb-6">
-            <div className="flex gap-2 items-center">
-              <CiViewTable className="text-4xl" />
-              <span className="font-bold text-2xl">Plan de estudios</span>
+            <div className="flex flex-col gap-6 mb-6">
+              <div className="flex gap-2 items-center">
+                <CiClock2 className="text-4xl" />
+                <span className="font-bold text-2xl">Duración</span>
+              </div>
+              <div className="pl-8">
+                <p>{course.duracion} horas académicas </p>
+              </div>
             </div>
-            <div className="pl-8 flex flex-row flex-wrap gap-6">
-              {course.planEstudios.map((item, index) => (
-                <div
-                  key={index}
-                  className="w-full bg-slate-100 rounded-lg flex flex-row justify-between gap-2  p-4"
-                >
-                  <div className="flex gap-2 ">
-                    <span className="pt-1">
+            <div className="flex flex-col gap-6 mb-6">
+              <div className="flex gap-2 items-center">
+                <CiCalendarDate className="text-4xl" />
+                <span className="font-bold text-2xl">Horarios</span>
+              </div>
+              <div className="pl-8 flex flex-row flex-wrap gap-6">
+                {course.horarios.map((item, index) => (
+                  <div
+                    key={index}
+                    className=" w-[250px] bg-slate-100 rounded-lg flex flex-col gap-2 items-start  p-4"
+                  >
+                    <div className="flex gap-2 items-center">
                       <IoIosArrowForward className="text-xl" />
-                    </span>
-                    <span className="font-bold text-xl">{item.title}</span>
+                      <span className="font-bold text-xl">{item.inicio}</span>
+                    </div>
+                    <div className="flex flex-col pl-6">
+                      <span className="text-lg">{item.dias}</span>
+                      <span>
+                        {item.horaInicio} - {item.horaFin}
+                      </span>
+                    </div>
                   </div>
-                  <div className="pl-2">
-                    <ul
-                      className="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-8"
-                      style={{ listStyle: "disc" }}
-                    >
-                      {item.competencias.map((competencia, index) => (
-                        <li key={index} className="text-sm">
-                          {competencia}
-                        </li>
-                      ))}
-                    </ul>
+                ))}
+              </div>
+            </div>
+            <div className="flex flex-col gap-6 mb-6">
+              <div className="flex gap-2 items-center">
+                <CiViewTable className="text-4xl" />
+                <span className="font-bold text-2xl">Plan de estudios</span>
+              </div>
+              <div className="pl-8 flex flex-row flex-wrap gap-6">
+                {course.planEstudios.map((item, index) => (
+                  <div
+                    key={index}
+                    className="w-full bg-slate-100 rounded-lg flex flex-row justify-between gap-2  p-4"
+                  >
+                    <div className="flex gap-2 ">
+                      <span className="pt-1">
+                        <IoIosArrowForward className="text-xl" />
+                      </span>
+                      <span className="font-bold text-xl">{item.title}</span>
+                    </div>
+                    <div className="pl-2">
+                      <ul
+                        className="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-8"
+                        style={{ listStyle: "disc" }}
+                      >
+                        {item.competencias.map((competencia, index) => (
+                          <li key={index} className="text-sm">
+                            {competencia}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
           {/* <p className="mb-2">Precio: S/. {course.precio}</p> */}
