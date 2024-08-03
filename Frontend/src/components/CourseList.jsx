@@ -18,7 +18,7 @@ const CourseList = () => {
 
   const fetchCourses = () => {
     setLoading(true);
-    let url = "http://localhost:5000/api/courses/filter?";
+    let url = `${import.meta.env.REACT_APP_URI_BACKEND}/api/courses/filter?`;
     const queryParams = new URLSearchParams();
 
     if (filters.categoria) {

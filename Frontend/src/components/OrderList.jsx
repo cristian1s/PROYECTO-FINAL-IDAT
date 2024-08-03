@@ -9,7 +9,7 @@ const OrderList = () => {
       if (user) {
         try {
           const response = await fetch(
-            `http://localhost:5000/api/orders/user/${user._id}`
+            `${import.meta.env.REACT_APP_URI_BACKEND}/api/orders/user/${user._id}`
           );
           const data = await response.json();
           setOrders(data);
