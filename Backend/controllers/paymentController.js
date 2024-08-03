@@ -27,8 +27,8 @@ const createCheckoutSession = async (req, res) => {
       payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
-      success_url: 'http://localhost:5173/success', // URL a la que se redirige después del pago
-      cancel_url: 'http://localhost:5173/cancel',  // URL a la que se redirige si se cancela el pago
+      success_url: `${process.env.URL_FRONTEND}/success`, // URL a la que se redirige después del pago
+      cancel_url: `${process.env.URL_FRONTEND}/cancel`,  // URL a la que se redirige si se cancela el pago
       //customer_email: user.correo, //  enviar correo del cliente 
       metadata: {
         userId: user.id, // Guardar ID del usuario
