@@ -9,4 +9,7 @@ export default defineConfig({
   //     '/api': `${import.meta.env.VITE_REACT_APP_URI_BACKEND}`
   //   }
   // }
+  build: {
+    outDir: 'dist',
+  }
 })
