@@ -1,0 +1,296 @@
+{
+	"info": {
+		"_postman_id": "fb6b8b40-5965-493f-b185-5317c43b3e4e",
+		"name": "PROJECT FINAL IDAT BACKEND",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "COURSES",
+			"item": [
+				{
+					"name": "Get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/api/courses",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Course Filter",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/api/courses/filter",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"courses",
+								"filter"
+							],
+							"query": [
+								{
+									"key": "categoria",
+									"value": "TECNOLOGIA",
+									"disabled": true
+								},
+								{
+									"key": "nombre",
+									"value": "backend",
+									"disabled": true
+								},
+								{
+									"key": "precioMin",
+									"value": "1000",
+									"disabled": true
+								},
+								{
+									"key": "precioMax",
+									"value": "2000",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Course order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/courses/filter?sortBy=nombre&order=desc&precioMin=1000&precioMax=5000&categoria=TECNOLOGIA",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"courses",
+								"filter"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "nombre"
+								},
+								{
+									"key": "order",
+									"value": "desc"
+								},
+								{
+									"key": "precioMin",
+									"value": "1000"
+								},
+								{
+									"key": "precioMax",
+									"value": "5000"
+								},
+								{
+									"key": "categoria",
+									"value": "TECNOLOGIA"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET BY ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/api/courses/669fef4d2bdbb932e11474f4",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"courses",
+								"669fef4d2bdbb932e11474f4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "GET ORDERS BY USER",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/api/orders/user/:userId",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"orders",
+								"user",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "66a310b61096c5d971706a9c"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "USERS",
+			"item": [
+				{
+					"name": "REGISTER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\":\"Javier\", \r\n    \"apellidos\":\"Lopez\", \r\n    \"correo\":\"javier@gmail.com\", \r\n    \"contraseña\":\"123456789\",\r\n    \"edad\":29\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/api/users/register",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LOGIN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"correo\":\"javier@gmail.com\", \r\n    \"contraseña\":\"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/api/users/login",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PAYMENT",
+			"item": [
+				{
+					"name": "create-checkout-session",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cart\":[\r\n        {\r\n            \"id\":\"669ff1ab2bdbb932e11474f7\",\r\n            \"nombre\":\"BACKEND CON JAVA SCRIPT\",\r\n            \"precio\":2000,\r\n            \"modalidad\":\"Modalidad virtual\",\r\n            \"categoria\":\"TECNOLOGIA\",\r\n            \"vacantes\":1\r\n        },\r\n        {\r\n            \"id\":\"669fef4d2bdbb932e11474f4\",\r\n            \"nombre\":\"DATA ANALITYCS I\",\r\n            \"precio\":1600,\r\n            \"modalidad\":\"Modalidad virtual\",\r\n            \"categoria\":\"TECNOLOGIA\",\r\n            \"vacantes\":1\r\n        }\r\n    ],\r\n    \"user\":{\r\n        \"_id\":\"66a310b61096c5d971706a9c\",\r\n        \"nombre\":\"Cristian\",\r\n        \"apellidos\":\"Muñoz\",\r\n        \"correo\":\"cristian@gmail.com\",\r\n        \"contraseña\":\"$2b$10$hhfjoENmQY.rbzjsxhKjP.Klnwez7erR6wlO55UPMrwHZ98DmTSFO\",\r\n        \"edad\":24\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/api/payments/create-checkout-session",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"payments",
+								"create-checkout-session"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Complete Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cart\":[\r\n        {\r\n            \"id\":\"669ff1ab2bdbb932e11474f7\",\r\n            \"nombre\":\"BACKEND CON JAVA SCRIPT\",\r\n            \"precio\":2000,\r\n            \"modalidad\":\"Modalidad virtual\",\r\n            \"categoria\":\"TECNOLOGIA\",\r\n            \"vacantes\":1\r\n        },\r\n        {\r\n            \"id\":\"669fef4d2bdbb932e11474f4\",\r\n            \"nombre\":\"DATA ANALITYCS I\",\r\n            \"precio\":1600,\r\n            \"modalidad\":\"Modalidad virtual\",\r\n            \"categoria\":\"TECNOLOGIA\",\r\n            \"vacantes\":1\r\n        }\r\n    ],\r\n    \"user\":{\r\n        \"_id\":\"66a310b61096c5d971706a9c\",\r\n        \"nombre\":\"Cristian\",\r\n        \"apellidos\":\"Muñoz\",\r\n        \"correo\":\"cristian@gmail.com\",\r\n        \"contraseña\":\"$2b$10$hhfjoENmQY.rbzjsxhKjP.Klnwez7erR6wlO55UPMrwHZ98DmTSFO\",\r\n        \"edad\":24\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/api/payments/complete-order",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"payments",
+								"complete-order"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

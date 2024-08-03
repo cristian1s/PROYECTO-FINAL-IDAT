@@ -10,7 +10,7 @@ const stripe = Stripe(stripeSecretKey);
 
 const createCheckoutSession = async (req, res) => {
   const { cart, user } = req.body;
-  
+  // console.log(req.body);
   const lineItems = cart.map(course => ({
     price_data: {
       currency: 'PEN',
