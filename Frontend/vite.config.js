@@ -6,10 +6,13 @@ export default defineConfig({
   plugins: [react()],
   // server: {
   //   proxy: {
-  //     '/api': `${import.meta.env.VITE_REACT_APP_URI_BACKEND}`
+  //     '/api': `http://localhost:5000`,
   //   }
   // }
-  build: {
-    outDir: 'dist',
-  }
+  // build: {
+  //   outDir: 'dist',
+  // },
+  // server: {
+  //   port: 3000,
+  // },
 })

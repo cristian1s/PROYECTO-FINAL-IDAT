@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: frontend
+    env: static
+    static_dir: build
+    routes:
+      - src: /*
+        dest: /index.html
